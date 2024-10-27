@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InfoResource;
 use App\Models\Info;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class InfoController extends Controller
     {
         try {
             $info = Info::orderBy('id','desc')->paginate(50);
-            return \response($info,200);
+            return \response(InfoResource::collection($info),200);
 
         }catch (\Exception $exception){ return $exception; }
     }
@@ -20,7 +21,7 @@ class InfoController extends Controller
     {
         try {
             $info = Info::create($request->all());
-            return \response($info,201);
+            return \response(new InfoResource($info),201);
 
         }catch (\Exception $exception){ return $exception; }
     }
@@ -29,7 +30,7 @@ class InfoController extends Controller
     {
         try {
             $info = Info::find($id);
-            return \response($info,200);
+            return \response(new InfoResource($info),200);
 
         }catch (\Exception $exception){ return $exception; }
     }
@@ -38,7 +39,7 @@ class InfoController extends Controller
         try {
             $info = Info::find($id);
             $info->update($request->all());
-            return \response($info,200);
+            return \response(new InfoResource($info),200);
 
         }catch (\Exception $exception){ return $exception; }
     }
