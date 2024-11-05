@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\InfoResource;
 use App\Models\Info;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller
 {
@@ -52,5 +53,24 @@ class InfoController extends Controller
             return \response('deleted successfully',200);
 
         }catch (\Exception $exception){ return $exception; }
+    }
+
+    public function cache()
+    {
+        $Codes = Info::orderBy('product_code')->pluck('product_code');
+        $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
+            ->whereNotIn('product_code', $Codes)
+            ->get();
+        foreach ($dat as $item) {
+            $info = Info::create([
+                'Type' => 'InventoryVoucher',
+                'OrderID' => $item->InventoryVoucherID,
+                'OrderNumber' => $item->Number,
+                'AddressID' => $item->Store->Plant->Address->AddressID,
+                'Sum' => $item->OrderItems->sum('Quantity'),
+                'DeliveryDate' => $item->DeliveryDate
+            ]);
+        }
+        return $dat;
     }
 }
