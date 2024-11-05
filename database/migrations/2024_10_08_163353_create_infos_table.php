@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('infos', function (Blueprint $table) {
             $table->id();
-            $table->string('depot_code')->nullable();
-            $table->string('depot_name')->nullable();
-            $table->string('product_code')->nullable();
-            $table->string('product_name')->nullable();
-            $table->string('unit')->nullable();
-            $table->string('stock_control_factor')->nullable();//
-            $table->string('physical_stock');
-            $table->string('counted_stock')->nullable();//
-            $table->string('wastage_stock')->nullable();//
-            $table->string('conflict')->nullable();
+            $table->string('StoreCode')->nullable();
+            $table->string('StoreName')->nullable();
+            $table->string('PartCode')->nullable();
+            $table->string('PartName')->nullable();
+            $table->string('Unit')->nullable();
+            $table->string('Factor')->nullable();//
+            $table->string('Quantity');
+            $table->string('Counted')->nullable();//
+            $table->string('Wastage')->nullable();//
+            $table->string('Conflict')->nullable();
 
             $table->timestamps();
         });

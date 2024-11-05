@@ -11,7 +11,7 @@ class CacheCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:cache-command';
+    protected $signature = 'app:cache';
 
     /**
      * The console command description.
