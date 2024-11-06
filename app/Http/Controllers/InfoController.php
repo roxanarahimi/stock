@@ -17,9 +17,9 @@ class InfoController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request['StoreCode']) {
-                $info = Info::orderBy('id')->where('StoreCode', $request['StoreCode'])->get();
-            } else {
+            if ($request['StoreCode']){
+                $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])->get();
+            }else{
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }
             return \response(InfoResource::collection($info), 200);
@@ -76,13 +76,11 @@ class InfoController extends Controller
     }
 
 
-    public function fix()
-    {
-        $dat = DB::table('DBO.MS_VWStorePartFactorRemainQuantity')->connection('sqlsrv')
+    public function fix(){
+        $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->orderBy('StoreCode')->orderBy('PartCode')->paginate(100);
         return $dat;
     }
-
     public function cache()
     {
         try {
