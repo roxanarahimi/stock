@@ -19,7 +19,6 @@ class InfoController extends Controller
         try {
             if ($request['StoreCode']){
                 $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])->get();
-
             }else{
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }

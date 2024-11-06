@@ -17,9 +17,9 @@ class InfoResource extends JsonResource
     {
         return [
             "id" => (string)$this->id,
-            "StoreCode" => $this->depot_code,
-            "StoreName" => $this->depot_name,
-            "PartCode" => $this->product_code,
+            "StoreCode" => $this->StoreCode,
+            "StoreName" => $this->StoreName,
+            "PartCode" => $this->PartCode,
             "PartName" => $this->PartName,
             "Unit" => $this->Unit,
             "Factor" => $this->Factor,
