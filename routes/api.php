@@ -27,3 +27,4 @@ use App\Http\Controllers\InfoController;
 Route::resource('/info', InfoController::class);
 Route::get('/fix', [InfoController::class, 'fix']);
 Route::get('/cache', [InfoController::class, 'cache']);
+Route::get('/test', [InfoController::class, 'index2']);

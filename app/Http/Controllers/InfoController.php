@@ -30,6 +30,21 @@ class InfoController extends Controller
             return $exception;
         }
     }
+public function index2(Request $request)
+    {
+        try {
+            if ($request['StoreCode']){
+                $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])
+                    ->orderBy('PartCode')->get()->count();
+            }else{
+                return \response('لطفا کد انبار را وارد کنید', 422);
+            }
+            return \response($info, 200);
+
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
 
     public function store(Request $request)
     {
