@@ -66,6 +66,7 @@ class InfoController extends Controller
         }
     }
 
+
     public function fix(){
         $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->get();
