@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('app:cache')
-            ->everyFiveMinutes()
+            ->everyThirtyMinutes()
             ->appendOutputTo('scheduler.log')
             ->timezone('Asia/Tehran');
     }
