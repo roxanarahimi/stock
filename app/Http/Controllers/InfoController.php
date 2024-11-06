@@ -78,7 +78,7 @@ class InfoController extends Controller
 
     public function fix(){
         $dat = DB::orderBy('StoreCode')->orderBy('PartCode')->connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
-            ->paginate('100');
+            ->paginate(100);
         return $dat;
     }
     public function cache()
