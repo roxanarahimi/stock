@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller
 {
-    public function index()
+    public function __construct()
+    {
+
+    }
+
+    public function index(Request $request)
     {
         try {
-            $info = Info::orderBy('id', 'desc')->paginate(50);
+            if ($request['StoreCode']){
+                $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])->get();
+
+            }else{
+                return \response('لطفا کد انبار را وارد کنید', 422);
+            }
             return \response(InfoResource::collection($info), 200);
 
         } catch (\Exception $exception) {
