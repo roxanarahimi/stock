@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Token;
 use App\Http\Resources\InfoResource;
 use App\Models\Info;
 use Illuminate\Http\Request;
@@ -9,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller
 {
-    public function __construct()
+    public function __construct(Request $request)
     {
-
+        $this->middleware(Token::class);//->except('readOnly1');
     }
 
     public function index(Request $request)
