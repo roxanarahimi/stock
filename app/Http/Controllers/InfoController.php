@@ -77,7 +77,7 @@ class InfoController extends Controller
 
 
     public function fix(){
-        $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
+        $dat = DB::orderBy('StoreCode')->orderBy('PartCode')->connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->get();
         return $dat;
     }
