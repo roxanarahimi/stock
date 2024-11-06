@@ -84,6 +84,7 @@ class InfoController extends Controller
     public function cache()
     {
         try {
+            Info::query()->truncate();
             $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
                 ->get();
             foreach ($dat as $item) {
