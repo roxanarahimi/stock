@@ -80,7 +80,7 @@ class InfoController extends Controller
             foreach ($dat as $item) {
                 $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)->first();
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
-                    $item->update([
+                    $d->update([
                         'Factor' => $item->Factor,//??
                         'Quantity' => (integer)$item->Quantity
                     ]);
