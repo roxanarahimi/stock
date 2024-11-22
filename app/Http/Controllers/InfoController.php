@@ -94,6 +94,9 @@ public function index2(Request $request)
 
 
     public function fix(){
+        $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->select('PartID','Name')
+            ->get()->count();
+        return $dat2;
         $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->orderBy('StoreCode')->orderBy('PartCode')->paginate(100);
         return $dat;
@@ -104,6 +107,7 @@ public function index2(Request $request)
             Info::query()->truncate();
             $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
                 ->get();
+
             foreach ($dat as $item) {
                 $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)->first();
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
