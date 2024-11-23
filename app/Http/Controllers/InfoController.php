@@ -58,8 +58,9 @@ public function index2(Request $request)
     }
     public function sku()
     {
-        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartID')
-            ->get()->unique();
+        $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->orderBy('PartID')
+           -> where('State',1)
+            ->get()->count();
         return $dat2;
     }
     public function show(string $id)
