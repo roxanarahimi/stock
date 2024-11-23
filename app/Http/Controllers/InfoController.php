@@ -59,7 +59,7 @@ public function index2(Request $request)
     public function sku()
     {
         $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->orderBy('PartID')
-            ->select('PartID','PartName')
+            ->select('PartID','Name')
            ->where('State',1)
             ->get();
         return $dat2;
