@@ -92,11 +92,14 @@ public function index2(Request $request)
         }
     }
 
+    public function skus()
+    {
+        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartID')
+            ->get()->unique();
+        return $dat2;
+    }
 
     public function fix(){
-        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartID')
-         ->get()->unique()->count();
-        return $dat2;
         $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->orderBy('StoreCode')->orderBy('PartCode')->paginate(100);
         return $dat;
