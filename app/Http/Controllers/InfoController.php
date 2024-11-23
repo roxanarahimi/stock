@@ -56,7 +56,12 @@ public function index2(Request $request)
             return $exception;
         }
     }
-
+    public function sku()
+    {
+        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartID')
+            ->get()->unique();
+        return $dat2;
+    }
     public function show(string $id)
     {
         try {
@@ -92,12 +97,7 @@ public function index2(Request $request)
         }
     }
 
-    public function skus()
-    {
-        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartID')
-            ->get()->unique();
-        return $dat2;
-    }
+
 
     public function fix(){
         $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')

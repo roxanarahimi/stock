@@ -28,3 +28,5 @@ Route::resource('/info', InfoController::class);
 Route::get('/fix', [InfoController::class, 'fix']);
 Route::get('/cache', [InfoController::class, 'cache']);
 Route::get('/test', [InfoController::class, 'index2']);
+Route::get('/sku', [InfoController::class, 'sku']);
+Route::get('/test', [InfoController::class, 'index2']);
