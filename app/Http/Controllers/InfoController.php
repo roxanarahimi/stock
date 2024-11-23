@@ -22,7 +22,7 @@ class InfoController extends Controller
                 $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])
                     ->orderBy('PartCode');
                 if ($request['PartCode']){
-                    $info = Info::orderBy('id')->where('PartCode',$request['StoreCode']);
+                    $info = Info::orderBy('id')->where('PartCode',$request['PartCode']);
                 }
                   $info = $info->get();
             }else{
