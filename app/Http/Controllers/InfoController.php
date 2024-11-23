@@ -61,7 +61,7 @@ public function index2(Request $request)
         $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->orderBy('PartID')
             ->select('PartID','PartName')
            ->where('State',1)
-            ->get()->count();
+            ->get();
         return $dat2;
     }
     public function show(string $id)
