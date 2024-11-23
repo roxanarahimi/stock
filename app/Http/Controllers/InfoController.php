@@ -94,9 +94,9 @@ public function index2(Request $request)
 
 
     public function fix(Request $request){
-        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartID')
-            ->where('StoreCode',$request['StoreCode'])->pluck('PartID')
-            ->unique()->count();
+        $dat2 = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')->orderBy('PartName')
+            ->where('StoreCode',$request['StoreCode'])
+           ->count();
         return $dat2;
         $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->orderBy('StoreCode')->orderBy('PartCode')->paginate(100);
