@@ -60,7 +60,22 @@ public function index2(Request $request)
             return $exception;
         }
     }
-    public function sku()
+    public function factor(Request $request)
+    {
+        if($request['partCode']){
+            return  \response(['12000','15000','20000','22000','30000','31000','31500'], 200);
+        }else{
+            return \response('لطفا کد sku را وارد کنید', 422);
+        }
+
+
+//        $dat2 = DB::connection('sqlsrv')->table('LGS3.PartTrackingFactor')->orderBy('PartCode')
+//            ->select('Code','Name')
+//            ->where('State',1)
+//            ->get();
+//        return $dat2;
+    }
+     public function sku()
     {
         $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->orderBy('Code')
             ->select('Code','Name')
