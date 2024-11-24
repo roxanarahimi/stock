@@ -132,22 +132,26 @@ public function index2(Request $request)
                 ->get();
 
             foreach ($dat as $item) {
-                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)->first();
-                if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
-                    $d->update([
-                        'Factor' => $item->Factor,//??
+                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)
+                    ->where('Factor', $item->Factor)->first();
+                if(!$d){
+                    Info::create([
+                        'StoreCode' => $item->StoreCode,
+                        'StoreName' => $item->StoreName,
+                        'PartCode' => $item->PartCode,
+                        'PartName' => $item->PartName,
+                        'Unit' => $item->Unit,
+                        'Factor' => $item->Factor,
                         'Quantity' => (integer)$item->Quantity
                     ]);
                 }
-                Info::create([
-                    'StoreCode' => $item->StoreCode,
-                    'StoreName' => $item->StoreName,
-                    'PartCode' => $item->PartCode,
-                    'PartName' => $item->PartName,
-                    'Unit' => $item->Unit,
-                    'Factor' => $item->Factor,
-                    'Quantity' => (integer)$item->Quantity
-                ]);
+                if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
+                    $d->update([
+//                        'Factor' => $item->Factor,//??
+                        'Quantity' => (integer)$item->Quantity
+                    ]);
+                }
+
             }
 
             $datetime = new \DateTime("now", new \DateTimeZone("Asia/Tehran"));
