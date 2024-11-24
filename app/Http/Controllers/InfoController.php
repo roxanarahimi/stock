@@ -129,10 +129,11 @@ public function index2(Request $request)
         try {
             Info::query()->truncate();
             $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
-                ->get();
+             ->take(50)->get();
+            return $dat;
             foreach ($dat as $item) {
                 $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)
-                    ->where('ّFactor', $item->PartCode)->first();
+                    ->where('ّFactor', $item->ّFactor)->first();
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
                     $d->update([
                         'Quantity' => (integer)$item->Quantity
