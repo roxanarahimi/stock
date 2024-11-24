@@ -79,7 +79,7 @@ public function index2(Request $request)
     {
         $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->orderBy('Code')
             ->select('Code','Name')
-           ->where('State',1)
+            ->where('State',1)
             ->get();
         return $dat2;
     }
@@ -88,7 +88,6 @@ public function index2(Request $request)
         try {
             $info = Info::find($id);
             return \response(new InfoResource($info), 200);
-
         } catch (\Exception $exception) {
             return $exception;
         }
@@ -131,12 +130,11 @@ public function index2(Request $request)
             Info::query()->truncate();
             $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
                 ->get();
-
             foreach ($dat as $item) {
-                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)->first();
+                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)
+                    ->where('ّFactor', $item->PartCode)->first();
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
                     $d->update([
-                        'Factor' => $item->Factor,//??
                         'Quantity' => (integer)$item->Quantity
                     ]);
                 }
