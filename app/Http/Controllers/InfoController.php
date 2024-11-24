@@ -65,7 +65,7 @@ public function index2(Request $request)
         if($request['PartCode']){
             return  \response(['12000','15000','20000','22000','30000','31000','31500'], 200);
         }else{
-            return \response('لطفا کد sku را وارد کنید', 422);
+            return \response('لطفا PartCode را وارد کنید', 422);
         }
 
 
