@@ -127,14 +127,15 @@ public function index2(Request $request)
     public function cache()
     {
         try {
-            Info::query()->truncate();
+//            Info::query()->truncate();
             $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
                 ->get();
+
             foreach ($dat as $item) {
-                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)
-                    ->where('ّFactor', $item->Factor)->first();
+                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)->first();
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
                     $d->update([
+                        'Factor' => $item->Factor,//??
                         'Quantity' => (integer)$item->Quantity
                     ]);
                 }
