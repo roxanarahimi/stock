@@ -127,7 +127,7 @@ public function index2(Request $request)
     public function cache()
     {
         try {
-            Info::query()->truncate();
+//            Info::query()->truncate();
             $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
                 ->get();
 
