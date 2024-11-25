@@ -71,7 +71,7 @@ class InfoController extends Controller
                 ->table('LGS3.InventoryVoucherItemTrackingFactor')
                 ->join('LGS3.InventoryVoucherItem', 'LGS3.InventoryVoucherItem.InventoryVoucherItemID', '=', 'InventoryVoucherItemTrackingFactor.InventoryVoucherItemRef')
                 ->join('LGS3.Part', 'LGS3.Part.PartID', '=', 'LGS3.InventoryVoucherItem.PartRef')
-                ->orderBy('LGS3.Part.Code')
+                ->orderBy('LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1')
 //                ->select('LGS3.Part.Code', 'LGS3.Part.Name', 'LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1 as Factor')
                 ->where('LGS3.Part.State', 1)
                 ->where('LGS3.Part.code', $request['PartCode'])
