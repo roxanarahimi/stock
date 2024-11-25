@@ -18,14 +18,14 @@ class InfoController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request['StoreCode']){
-                $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])
+            if ($request['StoreCode']) {
+                $info = Info::orderBy('id')->where('StoreCode', $request['StoreCode'])
                     ->orderBy('PartCode');
-                if ($request['PartCode']){
-                    $info = $info->where('PartCode',$request['PartCode']);
+                if ($request['PartCode']) {
+                    $info = $info->where('PartCode', $request['PartCode']);
                 }
-                  $info = $info->get();
-            }else{
+                $info = $info->get();
+            } else {
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }
             return \response(InfoResource::collection($info), 200);
@@ -34,13 +34,14 @@ class InfoController extends Controller
             return $exception;
         }
     }
-public function index2(Request $request)
+
+    public function index2(Request $request)
     {
         try {
-            if ($request['StoreCode']){
-                $info = Info::orderBy('id')->where('StoreCode',$request['StoreCode'])
+            if ($request['StoreCode']) {
+                $info = Info::orderBy('id')->where('StoreCode', $request['StoreCode'])
                     ->orderBy('PartCode')->get()->count();
-            }else{
+            } else {
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }
             return \response($info, 200);
@@ -60,11 +61,23 @@ public function index2(Request $request)
             return $exception;
         }
     }
+
     public function factor(Request $request)
     {
-        if($request['PartCode']){
-            return  \response(['12000','15000','20000','22000','30000','31000','31500'], 200);
-        }else{
+        if ($request['PartCode']) {
+
+//            return  \response(['12000','15000','20000','22000','30000','31000','31500'], 200);
+            $dat2 = DB::connection('sqlsrv')
+                ->table('LGS3.InventoryVoucherItemTrackingFactor')
+                ->join('LGS3.InventoryVoucherItem', 'LGS3.InventoryVoucherItem.InventoryVoucherItemID', '=', 'InventoryVoucherItemTrackingFactor.InventoryVoucherItemRef')
+                ->join('LGS3.Part', 'LGS3.Part.PartID', '=', 'LGS3.InventoryVoucherItem.PartRef')
+                ->orderBy('LGS3.Part.Code')
+                ->select('LGS3.Part.Code', 'LGS3.Part.Name', 'LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1 as Factor')
+                ->where('LGS3.Part.State', 1)
+                ->where('LGS3.Part.code', $request['PartCode'])
+                ->get();
+            return $dat2;
+        } else {
             return \response('لطفا PartCode را وارد کنید', 422);
         }
 
@@ -75,14 +88,16 @@ public function index2(Request $request)
 //            ->get();
 //        return $dat2;
     }
-     public function sku()
+
+    public function sku()
     {
         $dat2 = DB::connection('sqlsrv')->table('LGS3.Part')->orderBy('Code')
-            ->select('Code','Name')
-            ->where('State',1)
+            ->select('Code', 'Name')
+            ->where('State', 1)
             ->get();
         return $dat2;
     }
+
     public function show(string $id)
     {
         try {
@@ -118,12 +133,13 @@ public function index2(Request $request)
     }
 
 
-
-    public function fix(){
+    public function fix()
+    {
         $dat = DB::connection('sqlsrv')->table('DBO.MS_VWStorePartFactorRemainQuantity')
             ->orderBy('StoreCode')->orderBy('PartCode')->paginate(100);
         return $dat;
     }
+
     public function cache()
     {
         try {
@@ -132,9 +148,11 @@ public function index2(Request $request)
                 ->get();
 
             foreach ($dat as $item) {
-                $d = Info::where('StoreCode', $item->StoreCode)->where('PartCode', $item->PartCode)
-                    ->where('Factor', $item->Factor)->first();
-                if(!$d){
+                $d = Info::where('StoreCode', $item->StoreCode)
+                    ->where('PartCode', $item->PartCode)
+                    ->where('Factor', $item->Factor)
+                    ->first();
+                if (!$d) {
                     Info::create([
                         'StoreCode' => $item->StoreCode,
                         'StoreName' => $item->StoreName,
