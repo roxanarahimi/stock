@@ -75,7 +75,7 @@ class InfoController extends Controller
 //                ->select('LGS3.Part.Code', 'LGS3.Part.Name', 'LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1 as Factor')
                 ->where('LGS3.Part.State', 1)
                 ->where('LGS3.Part.code', $request['PartCode'])
-                ->pluck('LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1');
+                ->pluck('LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1')->toArray();
 
             return array_values($dat2);
         } else {
