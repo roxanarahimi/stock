@@ -72,11 +72,12 @@ class InfoController extends Controller
                 ->join('LGS3.InventoryVoucherItem', 'LGS3.InventoryVoucherItem.InventoryVoucherItemID', '=', 'InventoryVoucherItemTrackingFactor.InventoryVoucherItemRef')
                 ->join('LGS3.Part', 'LGS3.Part.PartID', '=', 'LGS3.InventoryVoucherItem.PartRef')
                 ->orderBy('LGS3.Part.Code')
-                ->select('LGS3.Part.Code', 'LGS3.Part.Name', 'LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1 as Factor')
+//                ->select('LGS3.Part.Code', 'LGS3.Part.Name', 'LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1 as Factor')
                 ->where('LGS3.Part.State', 1)
                 ->where('LGS3.Part.code', $request['PartCode'])
-                ->get();
-            return $dat2;
+                ->pluck('LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1')->get();
+
+            return array_values($dat2);
         } else {
             return \response('لطفا PartCode را وارد کنید', 422);
         }
