@@ -19,7 +19,7 @@ class InfoController extends Controller
     {
         try {
             if ($request['StoreCode']) {
-                $info = Info::orderBy('id')->where('StoreCode', $request['StoreCode'])
+                $info = Info::orderByDesc('id')->where('StoreCode', $request['StoreCode'])
                     ->orderBy('PartCode');
                 if ($request['PartCode']) {
                     $info = $info->where('PartCode', $request['PartCode']);
@@ -73,8 +73,8 @@ class InfoController extends Controller
                 ->join('LGS3.Part', 'LGS3.Part.PartID', '=', 'LGS3.InventoryVoucherItem.PartRef')
                 ->orderBy('LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1')
 //                ->select('LGS3.Part.Code', 'LGS3.Part.Name', 'LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1 as Factor')
-                ->where('LGS3.Part.State', 1)
                 ->where('LGS3.Part.code', $request['PartCode'])
+                ->where('LGS3.Part.State', 1)
                 ->pluck('LGS3.InventoryVoucherItemTrackingFactor.TrackingFactor1')->unique()->toArray();
 
             return array_values($dat2);
