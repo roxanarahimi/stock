@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Token;
 use App\Http\Resources\InfoResource;
 use App\Models\Info;
+use App\Models\InfoQuantityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -114,6 +115,13 @@ class InfoController extends Controller
         try {
             $info = Info::find($id);
             $info->update($request->all());
+            if($request['Quantity'] && $request['Quantity'] != ''){
+                InfoQuantityLog::create([
+                    'info_id'=>$id,
+                    'Quantity'=>$info['Quantity']
+                ]);
+            }
+
             return \response(new InfoResource($info), 200);
 
         } catch (\Exception $exception) {

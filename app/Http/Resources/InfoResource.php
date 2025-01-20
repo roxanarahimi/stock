@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\InfoQuantityLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Controllers\DateController;
@@ -24,6 +25,7 @@ class InfoResource extends JsonResource
             "Unit" => $this->Unit,
             "Factor" => $this->Factor,
             "Quantity" => $this->Quantity,
+            "Logs"=> InfoQuantityLogResource::collection($this->logs),
             "Counted" => $this->Counted,
             "Wastage" => $this->Wastage,
             "Conflict" => $this->Conflict,
