@@ -56,6 +56,12 @@ class InfoController extends Controller
     {
         try {
             $info = Info::create($request->all());
+            if($request['Quantity'] && $request['Quantity'] != ''){
+                InfoQuantityLog::create([
+                    'info_id'=>$info['id'],
+                    'Quantity'=>$info['Quantity']
+                ]);
+            }
             return \response(new InfoResource($info), 201);
 
         } catch (\Exception $exception) {
