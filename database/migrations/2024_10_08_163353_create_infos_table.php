@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('Factor')->nullable();//
             $table->string('Quantity');
 
-
             $table->timestamps();
         });
     }

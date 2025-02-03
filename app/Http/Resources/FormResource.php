@@ -23,10 +23,8 @@ class FormResource extends JsonResource
         return [
             "id" => $this->id,
             "StoreCode" => $this->StoreCode,
-
             "Start" => explode(' ',(new DateController)->toPersian($this->Start))[0].' '.explode(' ',(new DateController)->toPersian($this->Start))[1],
             "End" => $end,
-
             'Records' => FormRecordResource::collection($this->records)
 
         ];

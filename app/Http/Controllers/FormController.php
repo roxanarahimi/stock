@@ -30,6 +30,7 @@ class FormController extends Controller
             return $exception;
         }
     }
+
     public function last(Request $request)
     {
         try {
@@ -44,12 +45,19 @@ class FormController extends Controller
             return $exception;
         }
     }
+
     public function store(Request $request)
     {
         try {
+            $lastForm = Form::orderByDesc('id')->where('StoreCode',$request['StoreCode'])->first();
+            if($lastForm && $lastForm['End'] === null){
+                $lastForm->update([
+                    'End' => now()
+                ]);
+            }
             $form = Form::create([
-                'StoreCode'=>$request['StoreCode'],
-                'Start'=> now()
+                'StoreCode' => $request['StoreCode'],
+                'Start' => now()
             ]);
 
             return \response(new FormResource($form), 201);
@@ -79,11 +87,23 @@ class FormController extends Controller
         }
     }
 
+    public function end(Request $request, Form $form)
+    {
+        try {
+            $form->update([
+                'End' => now()
+            ]);
+            return \response(new FormResource($form), 200);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
     public function destroy(Form $form)
     {
         try {
-            $records = FormRecord::where('form_id',$form['id'])->get();
-            foreach ($records as $item){
+            $records = FormRecord::where('form_id', $form['id'])->get();
+            foreach ($records as $item) {
                 $item->delete();
             }
             $form->delete();

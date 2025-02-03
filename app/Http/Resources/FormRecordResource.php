@@ -20,14 +20,10 @@ class FormRecordResource extends JsonResource
             "form_id" => $this->form_id,
             "info_id" => $this->info_id,
 
-
             "PartCode" => $this->sku->PartCode,
             "PartName" => $this->sku->PartName,
             "Factor" => $this->sku->Factor,
             "Quantity" => $this->sku->Quantity,
-
-
-
 
             "Counted" => $this->Counted,
             "Wastage" => $this->Wastage,

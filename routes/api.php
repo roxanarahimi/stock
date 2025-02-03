@@ -36,3 +36,6 @@ Route::get('/test', [InfoController::class, 'index2']);
 Route::get('/sku', [InfoController::class, 'sku']);
 Route::get('/factor', [InfoController::class, 'factor']);
 Route::get('/test', [InfoController::class, 'index2']);
+
+Route::put('/end/form/{form}', [FormController::class,'end']);
+Route::put('/last/form', [FormController::class,'last']);
