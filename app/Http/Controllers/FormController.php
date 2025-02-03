@@ -35,11 +35,20 @@ class FormController extends Controller
     {
         try {
             if ($request['StoreCode']) {
-                $form = Form::orderByDesc('id')->where('StoreCode', $request['StoreCode'])->first();
+                $form = Form::orderByDesc('id')
+                    ->where('StoreCode', $request['StoreCode'])
+                    ->where('End', null)
+                    ->first();
+                if (isset($form)){
+                    return \response(new FormResource($form), 200);
+                }else{
+                    return \response($form, 200);
+                }
+
             } else {
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }
-            return \response(new FormResource($form), 200);
+
 
         } catch (\Exception $exception) {
             return $exception;

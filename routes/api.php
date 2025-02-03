@@ -38,4 +38,4 @@ Route::get('/factor', [InfoController::class, 'factor']);
 Route::get('/test', [InfoController::class, 'index2']);
 
 Route::put('/end/form/{form}', [FormController::class,'end']);
-Route::put('/last/form', [FormController::class,'last']);
+Route::get('/last/open/form', [FormController::class,'last']);
