@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('info_quantity_logs', function (Blueprint $table) {
+        Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->integer('info_id');
-            $table->string('Quantity');
+            $table->string('StoreCode')->nullable();
+            $table->dateTime('Start')->nullable();
+            $table->dateTime('End')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('info_quantity_logs');
+        Schema::dropIfExists('forms');
     }
 };

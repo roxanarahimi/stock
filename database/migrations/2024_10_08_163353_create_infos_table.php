@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string('StoreCode')->nullable();
             $table->string('StoreName')->nullable();
             $table->string('PartCode')->nullable();
+
             $table->string('PartName')->nullable();
             $table->string('Unit')->nullable();
             $table->string('Factor')->nullable();//
             $table->string('Quantity');
-            $table->string('Counted')->nullable();//
-            $table->string('Wastage')->nullable();//
-            $table->string('Conflict')->nullable();
+
 
             $table->timestamps();
         });

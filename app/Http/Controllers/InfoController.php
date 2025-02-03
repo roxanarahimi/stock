@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Token;
 use App\Http\Resources\InfoResource;
 use App\Models\Info;
-use App\Models\InfoQuantityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,12 +55,12 @@ class InfoController extends Controller
     {
         try {
             $info = Info::create($request->all());
-            if($request['Quantity'] && $request['Quantity'] != '' && $request['Quantity'] > 0){
-                InfoQuantityLog::create([
-                    'info_id'=>$info['id'],
-                    'Quantity'=>$info['Quantity']
-                ]);
-            }
+//            if($request['Quantity'] && $request['Quantity'] != '' && $request['Quantity'] > 0){
+//                InfoQuantityLog::create([
+//                    'info_id'=>$info['id'],
+//                    'Quantity'=>$info['Quantity']
+//                ]);
+//            }
             return \response(new InfoResource($info), 201);
 
         } catch (\Exception $exception) {
@@ -180,7 +179,6 @@ class InfoController extends Controller
                 }
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
                     $d->update([
-//                        'Factor' => $item->Factor,//??
                         'Quantity' => (integer)$item->Quantity
                     ]);
                 }

@@ -17,7 +17,7 @@ class InfoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => (string)$this->id,
+            "id" => $this->id,
             "StoreCode" => $this->StoreCode,
             "StoreName" => $this->StoreName,
             "PartCode" => $this->PartCode,
@@ -25,10 +25,6 @@ class InfoResource extends JsonResource
             "Unit" => $this->Unit,
             "Factor" => $this->Factor,
             "Quantity" => $this->Quantity,
-            "Logs"=> InfoQuantityLogResource::collection($this->logs),
-            "Counted" => $this->Counted,
-            "Wastage" => $this->Wastage,
-            "Conflict" => $this->Conflict,
 
             "created_at" => explode(' ',(new DateController)->toPersian($this->created_at))[0],
             "updated_at" => explode(' ',(new DateController)->toPersian($this->updated_at))[0],

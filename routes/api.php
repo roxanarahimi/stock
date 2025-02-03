@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\FormRecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,9 @@ use App\Http\Controllers\InfoController;
 //    });
 //});
 Route::resource('/info', InfoController::class);
+Route::resource('/form', FormController::class);
+Route::resource('/record', FormRecordController::class);
+
 Route::get('/fix', [InfoController::class, 'fix']);
 Route::get('/cache', [InfoController::class, 'cache']);
 Route::get('/test', [InfoController::class, 'index2']);

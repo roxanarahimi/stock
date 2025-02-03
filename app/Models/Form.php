@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Info extends Model
+class Form extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-//    public function logs()
-//    {
-//        return $this->hasMany(InfoQuantityLog::class,'info_id','id')->orderByDesc('created_at')->take(100);
-//    }
+    public function records()
+    {
+        return $this->hasMany(FormRecord::class,'form_id','id')->orderByDesc('id');
+    }
 }
