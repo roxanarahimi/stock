@@ -68,10 +68,11 @@ class FormRecordController extends Controller
         }
     }
 
-    public function destroy(FormRecord $formRecord)
+    public function destroy($id)
     {
         try {
-            return $formRecord;
+
+            return $id;
             $formRecord->delete();
             return \response('record was deleted successfully.', 200);
         } catch (\Exception $exception) {
