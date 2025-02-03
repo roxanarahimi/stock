@@ -48,9 +48,10 @@ class FormRecordController extends Controller
         }
     }
 
-    public function show(FormRecord $formRecord)
+    public function show($id)
     {
         try {
+            $formRecord = FormRecord::find($id);
             return \response(new FormRecordResource($formRecord), 200);
 
         } catch (\Exception $exception) {
@@ -58,9 +59,10 @@ class FormRecordController extends Controller
         }
     }
 
-    public function update(Request $request, FormRecord $formRecord)
+    public function update(Request $request, $id)
     {
         try {
+            $formRecord = FormRecord::find($id);
             return $formRecord;
             $formRecord->update($request->all());
             return \response(new FormRecordResource($formRecord), 200);
@@ -74,8 +76,6 @@ class FormRecordController extends Controller
         try {
 
             $formRecord = FormRecord::find($id);
-            return $formRecord;
-
             $formRecord->delete();
             return \response('record was deleted successfully.', 200);
         } catch (\Exception $exception) {
