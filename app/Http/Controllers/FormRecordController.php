@@ -63,7 +63,6 @@ class FormRecordController extends Controller
     {
         try {
             $formRecord = FormRecord::find($id);
-            return $formRecord;
             $formRecord->update($request->all());
             return \response(new FormRecordResource($formRecord), 200);
         } catch (\Exception $exception) {

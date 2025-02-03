@@ -76,9 +76,10 @@ class FormController extends Controller
         }
     }
 
-    public function show(Form $form)
+    public function show($id)
     {
         try {
+            $form = Form::find($id);
             return \response(new FormResource($form), 200);
 
         } catch (\Exception $exception) {
@@ -86,9 +87,10 @@ class FormController extends Controller
         }
     }
 
-    public function update(Request $request, Form $form)
+    public function update(Request $request, $id)
     {
         try {
+            $form = Form::find($id);
             $form->update($request->all());
             return \response(new FormResource($form), 200);
         } catch (\Exception $exception) {
@@ -96,9 +98,10 @@ class FormController extends Controller
         }
     }
 
-    public function end(Request $request, Form $form)
+    public function end(Request $request, $id)
     {
         try {
+            $form = Form::find($id);
             $form->update([
                 'End' => now()
             ]);
@@ -108,9 +111,10 @@ class FormController extends Controller
         }
     }
 
-    public function destroy(Form $form)
+    public function destroy($id)
     {
         try {
+            $form = Form::find($id);
             $records = FormRecord::where('form_id', $form['id'])->get();
             foreach ($records as $item) {
                 $item->delete();
