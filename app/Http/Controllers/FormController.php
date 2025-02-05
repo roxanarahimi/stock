@@ -21,10 +21,11 @@ class FormController extends Controller
         try {
             if ($request['StoreCode']) {
                 $form = Form::orderByDesc('id')->where('StoreCode', $request['StoreCode'])->paginate(100);
+                $data= FormResource::collection($form);
             } else {
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }
-            return \response(FormResource::collection($form), 200);
+            return \response($form, 200);
 
         } catch (\Exception $exception) {
             return $exception;
