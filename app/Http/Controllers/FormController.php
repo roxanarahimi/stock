@@ -20,7 +20,7 @@ class FormController extends Controller
     {
         try {
             if ($request['StoreCode']) {
-                $form = Form::orderByDesc('id')->where('StoreCode', $request['StoreCode'])->get();
+                $form = Form::orderByDesc('id')->where('StoreCode', $request['StoreCode'])->paginate(100);
             } else {
                 return \response('لطفا کد انبار را وارد کنید', 422);
             }
