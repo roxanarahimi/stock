@@ -18,7 +18,7 @@ class FormRecordController extends Controller
     {
         try {
             if ($request['form_id']) {
-                $formRecord = FormRecord::orderByDesc('id')->where('form_id', $request['form_id'])->paginage(300);
+                $formRecord = FormRecord::orderByDesc('id')->where('form_id', $request['form_id'])->paginate(300);
                 $data= FormRecordResource::collection($formRecord);
             } else {
                 return \response('لطفا form_id را وارد کنید', 422);
