@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('infos', function (Blueprint $table) {
-            $table->dropColumn('Counted');
-            $table->dropColumn('Wastage');
-            $table->dropColumn('Conflict');
+        Schema::table('form_records', function (Blueprint $table) {
+            $table->string('Quantity');
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('infos', function (Blueprint $table) {
+        Schema::table('form_records', function (Blueprint $table) {
             //
         });
     }
