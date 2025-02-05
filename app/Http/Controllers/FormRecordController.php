@@ -18,11 +18,12 @@ class FormRecordController extends Controller
     {
         try {
             if ($request['form_id']) {
-                $formRecord = FormRecord::orderByDesc('id')->where('form_id', $request['form_id'])->get();
+                $formRecord = FormRecord::orderByDesc('id')->where('form_id', $request['form_id'])->paginage(300);
+                $data= FormRecordResource::collection($formRecord);
             } else {
                 return \response('لطفا form_id را وارد کنید', 422);
             }
-            return \response(FormRecordResource::collection($formRecord), 200);
+            return \response($formRecord, 200);
 
         } catch (\Exception $exception) {
             return $exception;
