@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('form_id');
             $table->integer('info_id');
-            $table->string('Counted')->nullable();
-            $table->string('Wastage')->nullable();
-            $table->string('Conflict')->nullable();
+            $table->string('Quantity');
+            $table->string('Counted');
+            $table->string('Wastage');
+            $table->string('Conflict');
             $table->timestamps();
         });
     }
