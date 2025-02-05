@@ -36,6 +36,7 @@ class FormRecordController extends Controller
             $formRecord = FormRecord::create([
                 'form_id' => $request['form_id'],
                 'info_id' => $request['info_id'],
+                'Quantity' => $request['Quantity'],
                 'Counted' => $request['Counted'],
                 'Wastage' => $request['Wastage'],
                 'Conflict' => $request['Conflict'],
