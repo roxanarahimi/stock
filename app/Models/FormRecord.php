@@ -13,8 +13,5 @@ class FormRecord extends Model
     {
         return $this->belongsTo(Form::class,'form_id','id');
     }
-    public function sku()
-    {
-        return $this->belongsTo(Info::class,'info_id','id');
-    }
+
 }

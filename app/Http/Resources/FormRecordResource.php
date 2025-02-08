@@ -18,11 +18,10 @@ class FormRecordResource extends JsonResource
         return [
             "id" => $this->id,
             "form_id" => $this->form_id,
-            "info_id" => $this->info_id,
 
-            "PartCode" => $this->sku?->PartCode,
-            "PartName" => $this->sku?->PartName,
-            "Factor" => $this->sku?->Factor,
+            "PartCode" => $this->PartCode,
+            "PartName" => $this->PartName,
+            "Factor" => $this->Factor,
 
             "Quantity" => $this->Quantity,
             "Counted" => $this->Counted,
@@ -30,6 +29,7 @@ class FormRecordResource extends JsonResource
             "Conflict" => $this->Conflict,
 
             "created_at" => explode(' ',(new DateController)->toPersian($this->created_at))[0].' '.explode(' ',(new DateController)->toPersian($this->created_at))[1],
+            "updated_at" => explode(' ',(new DateController)->toPersian($this->updated_at))[0].' '.explode(' ',(new DateController)->toPersian($this->updated_at))[1],
 
         ];
     }

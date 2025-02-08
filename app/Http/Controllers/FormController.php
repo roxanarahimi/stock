@@ -7,6 +7,7 @@ use App\Http\Middleware\Token;
 use App\Http\Resources\FormResource;
 use App\Models\Form;
 use App\Models\FormRecord;
+use App\Models\Info;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -70,6 +71,12 @@ class FormController extends Controller
                 'Start' => now()
             ]);
 
+            $skus = Info::where('StoreCode',$request['StoreCode'])->get();
+            foreach ($skus as $item){
+                $formRecord = FormRecord::create([
+                    'form_id' => $form['id'],
+                ]);
+            }
             return \response(new FormResource($form), 201);
 
         } catch (\Exception $exception) {

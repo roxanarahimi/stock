@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('form_records', function (Blueprint $table) {
             $table->id();
             $table->integer('form_id');
-            $table->integer('info_id');
+            $table->string('PartCode')->nullable();
+            $table->string('PartName')->nullable();
+            $table->string('Unit')->nullable();
+            $table->string('Factor')->nullable();
             $table->string('Quantity');
             $table->string('Counted');
             $table->string('Wastage');
