@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('PartName')->nullable();
             $table->string('Unit')->nullable();
             $table->string('Factor')->nullable();
-            $table->string('Quantity');
-            $table->string('Counted');
-            $table->string('Wastage');
-            $table->string('Conflict');
+            $table->string('Quantity')->nullable();
+            $table->string('Counted')->nullable();
+            $table->string('Wastage')->nullable();
+            $table->string('Conflict')->nullable();
             $table->timestamps();
         });
     }
