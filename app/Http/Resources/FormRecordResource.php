@@ -21,6 +21,7 @@ class FormRecordResource extends JsonResource
 
             "PartCode" => $this->PartCode,
             "PartName" => $this->PartName,
+            "Unit" => $this->Unit,
             "Factor" => $this->Factor,
 
             "Quantity" => $this->Quantity,

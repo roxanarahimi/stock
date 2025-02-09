@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Token;
+use App\Http\Resources\FormResource;
 use App\Http\Resources\InfoResource;
+use App\Models\Form;
+use App\Models\FormRecord;
 use App\Models\Info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +58,20 @@ class InfoController extends Controller
     {
         try {
             $info = Info::create($request->all());
+            $form = Form::orderByDesc('id')
+                ->where('StoreCode', $request['StoreCode'])
+                ->where('End', null)
+                ->first();
+            if (isset($form)){
+                $formRecord = FormRecord::create([
+                    'form_id' => $form['id'],
+                    'PartCode' => $request['PartCode'],
+                    'PartName' => $request['PartName'],
+                    'Unit' => $request['Unit'],
+                    'Factor' => $request['Factor'],
+                    'Quantity' => $request['Quantity'],
+                ]);
+            }
             return \response(new InfoResource($info), 201);
         } catch (\Exception $exception) {
             return $exception;
