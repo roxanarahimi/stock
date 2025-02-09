@@ -75,11 +75,11 @@ class FormController extends Controller
             foreach ($skus as $item){
                 $formRecord = FormRecord::create([
                     'form_id' => $form['id'],
-                    'PartCode' => $item['id'],
-                    'PartName' => $item['id'],
-                    'Unit' => $item['id'],
-                    'Factor' => $item['id'],
-                    'Quantity' => $item['id'],
+                    'PartCode' => $item['PartCode'],
+                    'PartName' => $item['PartName'],
+                    'Unit' => $item['Unit'],
+                    'Factor' => $item['Factor'],
+                    'Quantity' => $item['Quantity'],
                 ]);
             }
             return \response(new FormResource($form), 201);
