@@ -189,6 +189,7 @@ class InfoController extends Controller
                 }
                 if ($d && (integer)$item->Quantity != (integer)$d->Quantity) {
                     $d->update([
+                        'StoreName' => $item->StoreName,
                         'Quantity' => (integer)$item->Quantity
                     ]);
                 }
