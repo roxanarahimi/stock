@@ -57,11 +57,11 @@ class InfoController extends Controller
     public function store(Request $request)
     {
         try {
-            $exist = Info::where('StoreCode', $request['StoreCode'])
-                ->where('PartCode', $request['PartCode'])
-                ->where('Factor', $request['Factor'])
-                ->first();
-            if(!$exist){
+//            $exist = Info::where('StoreCode', $request['StoreCode'])
+//                ->where('PartCode', $request['PartCode'])
+//                ->where('Factor', $request['Factor'])
+//                ->first();
+//            if(!$exist){
                 $info = Info::create($request->all());
                 $form = Form::orderByDesc('id')
                     ->where('StoreCode', $request['StoreCode'])
@@ -78,10 +78,9 @@ class InfoController extends Controller
                     ]);
                 }
                 return \response(new InfoResource($info), 201);
-
-            }else{
-                return \response(['message','محصول با قیمت مورد نظر شما در انبار موجود است.'], 422);
-            }
+//            }else{
+//                return \response(['message','محصول با قیمت مورد نظر شما در انبار موجود است.'], 422);
+//            }
 
 
         } catch (\Exception $exception) {
