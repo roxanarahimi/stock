@@ -33,9 +33,12 @@ class FormRecordController extends Controller
     public function store(Request $request)
     {
         try {
-
             $formRecord = FormRecord::create([
                 'form_id' => $request['form_id'],
+                'PartCode' => $request['PartCode'],
+                'PartName' => $request['PartName'],
+                'Unit' => $request['Unit'],
+                'Factor' => $request['Factor'],
                 'Quantity' => $request['Quantity'],
                 'Counted' => $request['Counted'],
                 'Wastage' => $request['Wastage'],
