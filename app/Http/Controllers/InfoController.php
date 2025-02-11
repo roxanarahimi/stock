@@ -57,22 +57,33 @@ class InfoController extends Controller
     public function store(Request $request)
     {
         try {
-            $info = Info::create($request->all());
-            $form = Form::orderByDesc('id')
-                ->where('StoreCode', $request['StoreCode'])
-                ->where('End', null)
+            $exist = Info::where('StoreCode', $request['StoreCode'])
+                ->where('PartCode', $request['PartCode'])
+                ->where('Factor', $request['Factor'])
                 ->first();
-            if (isset($form)){
-                $formRecord = FormRecord::create([
-                    'form_id' => $form['id'],
-                    'PartCode' => $request['PartCode'],
-                    'PartName' => $request['PartName'],
-                    'Unit' => $request['Unit'],
-                    'Factor' => $request['Factor'],
-                    'Quantity' => $request['Quantity'],
-                ]);
+            if(!$exist){
+                $info = Info::create($request->all());
+                $form = Form::orderByDesc('id')
+                    ->where('StoreCode', $request['StoreCode'])
+                    ->where('End', null)
+                    ->first();
+                if (isset($form)) {
+                    $formRecord = FormRecord::create([
+                        'form_id' => $form['id'],
+                        'PartCode' => $request['PartCode'],
+                        'PartName' => $request['PartName'],
+                        'Unit' => $request['Unit'],
+                        'Factor' => $request['Factor'],
+                        'Quantity' => $request['Quantity'],
+                    ]);
+                }
+                return \response(new InfoResource($info), 201);
+
+            }else{
+                return \response(['message','محصول با قیمت مورد نظر شما در انبار موجود است.'], 422);
             }
-            return \response(new InfoResource($info), 201);
+
+
         } catch (\Exception $exception) {
             return $exception;
         }
@@ -130,10 +141,10 @@ class InfoController extends Controller
         try {
             $info = Info::find($id);
             $info->update($request->all());
-            if($request['Quantity'] && $request['Quantity'] != ''){
+            if ($request['Quantity'] && $request['Quantity'] != '') {
                 InfoQuantityLog::create([
-                    'info_id'=>$id,
-                    'Quantity'=>$info['Quantity']
+                    'info_id' => $id,
+                    'Quantity' => $info['Quantity']
                 ]);
             }
 
